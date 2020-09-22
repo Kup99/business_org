@@ -1,18 +1,15 @@
 package my.application.com.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
-@Table(name = "sub_task")
+@Table(name = "goal")
 @JsonIgnoreProperties(ignoreUnknown = false)
-public class SubTask {
 
+public class Goal {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -21,17 +18,22 @@ public class SubTask {
     private String name;
     @Column(name = "comment")
     private String comment;
-    @Column(name = "period")
-    private int period;
+    @Transient
+    private int taskCount;
+    @Column(name = "days_for_goal")
+    private int daysForGoal;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "task_id")
+    private List<Task> tasks;
 
-    public SubTask() {
-    }
-
-    public SubTask(String name, String comment, int period, Set<Task> tasks) {
+    public Goal(String name, String comment, int daysForGoal, List<Task> tasks) {
         this.name = name;
         this.comment = comment;
-        this.period = period;
+        this.daysForGoal = daysForGoal;
+        this.tasks = tasks;
+    }
 
+    public Goal() {
     }
 
     public long getId() {
@@ -58,11 +60,19 @@ public class SubTask {
         this.comment = comment;
     }
 
-    public int getPeriod() {
-        return period;
+    public int getDaysForGoal() {
+        return daysForGoal;
     }
 
-    public void setPeriod(int period) {
-        this.period = period;
+    public void setDaysForGoal(int daysForGoal) {
+        this.daysForGoal = daysForGoal;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 }

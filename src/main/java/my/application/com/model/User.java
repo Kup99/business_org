@@ -1,13 +1,10 @@
 package my.application.com.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-
 import javax.persistence.*;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -28,19 +25,22 @@ public class User implements UserDetails {
     private String password;
     @Transient
     private String confirmPassword;
+    @Transient
+    private int goalCount;
     @Column(name = "interests")
     @ElementCollection(targetClass = String.class)
     private List<String> interest;
+    @Column(name = "level")
     private int level;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
-    private List<Task> tasks;
+    private List<Goal> goals;
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Role> roles;
 
-    public User(String userName, List<Task> tasks, List<String> interest, int level) {
+    public User(String userName, List<Goal> goals, List<String> interest, int level) {
         this.userName = userName;
-        this.tasks = tasks;
+        this.goals = goals;
         this.interest = interest;
         this.level = level;
     }
@@ -127,12 +127,12 @@ public class User implements UserDetails {
         this.userName = userName;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public List<Goal> getGoals() {
+        return goals;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+    public void setGoals(List<Goal> goals) {
+        this.goals = goals;
     }
 
     public List<String> getInterest() {

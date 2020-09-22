@@ -1,13 +1,12 @@
 package my.application.com.service;
 
-import my.application.com.model.Task;
-import my.application.com.model.User;
+import my.application.com.model.Goal;
 
 import java.util.List;
 
 
 public interface TaskService {
-    void saveAll(Task task);
+    void saveAll(Goal goal);
 
-    List<Task> getAll();
+    List<Goal> getAll();
 }
