@@ -20,6 +20,7 @@ public class Task {
     private String comment;
     @Column(name = "period")
     private int period;
+    private long goal_id;
 
     public Task() {
     }
@@ -29,6 +30,14 @@ public class Task {
         this.comment = comment;
         this.period = period;
 
+    }
+
+    public long getGoal_id() {
+        return goal_id;
+    }
+
+    public void setGoal_id(long goal_id) {
+        this.goal_id = goal_id;
     }
 
     public long getId() {

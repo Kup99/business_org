@@ -3,6 +3,7 @@ package my.application.com.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,17 +21,47 @@ public class Goal {
     private String comment;
     @Transient
     private int taskCount;
-    @Column(name = "days_for_goal")
+    @Column(name = "goal_data")
+    private Date goalDate;
+    @Transient
     private int daysForGoal;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "task_id")
+    @JoinColumn(name = "goal_id")
     private List<Task> tasks;
+    private long user_id;
 
-    public Goal(String name, String comment, int daysForGoal, List<Task> tasks) {
+    public int getTaskCount() {
+        return taskCount;
+    }
+
+    public void setTaskCount(int taskCount) {
+        this.taskCount = taskCount;
+    }
+
+    public Date getGoalDate() {
+        return goalDate;
+    }
+
+    public void setGoalDate(Date goalDate) {
+        this.goalDate = goalDate;
+    }
+
+    public Goal(String name, String comment, int taskCount, Date goalDate, int daysForGoal, List<Task> tasks, long user_id) {
         this.name = name;
         this.comment = comment;
+        this.taskCount = taskCount;
+        this.goalDate = goalDate;
         this.daysForGoal = daysForGoal;
         this.tasks = tasks;
+        this.user_id = user_id;
+    }
+
+    public long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(long user_id) {
+        this.user_id = user_id;
     }
 
     public Goal() {

@@ -10,10 +10,10 @@ public interface UserService {
 
     User findByUserName(String name);
 
-    List<User> getAll();
+    List<User> getAllByLevel();
 
     void deleteUserById(long id) throws Exception;
 
-    public Optional<User> findUserById(long id);
+    Optional<User> findUserById(long id);
 
 }

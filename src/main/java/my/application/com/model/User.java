@@ -38,14 +38,27 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Role> roles;
 
-    public User(String userName, List<Goal> goals, List<String> interest, int level) {
+    public User(String userName, String email, String password, String confirmPassword, int goalCount, List<String> interest, int level, List<Goal> goals, Set<Role> roles) {
         this.userName = userName;
-        this.goals = goals;
+        this.email = email;
+        this.password = password;
+        this.confirmPassword = confirmPassword;
+        this.goalCount = goalCount;
         this.interest = interest;
         this.level = level;
+        this.goals = goals;
+        this.roles = roles;
     }
 
     public User() {
+    }
+
+    public int getGoalCount() {
+        return goalCount;
+    }
+
+    public void setGoalCount(int goalCount) {
+        this.goalCount = goalCount;
     }
 
     @Override
